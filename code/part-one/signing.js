@@ -20,8 +20,8 @@ const createPrivateKey = () => {
     privKey = randomBytes(32);
   } while (!secp256k1.privateKeyVerify(privKey))
 
-  return privKey.toString('hex');
   // Return 64 char hexadecimal string
+  return privKey.toString('hex');
 
 };
 
@@ -39,9 +39,15 @@ const createPrivateKey = () => {
  *   not hex strings! You'll have to convert the private key.
  */
 const getPublicKey = privateKey => {
-  // Your code here
+  // Turn key from hex to buffer
+  // Create public key
+  const pubKey = secp256k1.publicKeyCreate(Buffer.from(privateKey, 'hex'));
 
+  // Return 66 char hexadecimal string
+  return pubKey.toString('hex');
 };
+
+// console.log(getPublicKey(createPrivateKey()));
 
 /**
  * A function which takes a hex private key and a string message, returning
